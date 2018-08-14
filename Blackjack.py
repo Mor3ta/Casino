@@ -11,18 +11,24 @@ class  player():
 
 
     def pedir(self):
-        pedir=random.randint(1, 10)
-        self.puntos=self.puntos+pedir
-        self.carta.append(pedir)
-
+        if self.puntos<21:
+            pedir=random.randint(1, 13)
+            self.puntos=self.puntos+pedir
+            self.carta.append(pedir)
 
 lucero=player("Lucero",1000,500)
 
 
+##print lucero.cartas
+##lucero.pedir()
+
+print lucero.cartas
 print lucero.puntos
 lucero.pedir()
-print lucero.carta
 print lucero.puntos
+
+
+
 
 
 
