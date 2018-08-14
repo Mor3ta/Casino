@@ -2,16 +2,35 @@ import random
 
 class  player():
     cartas=random.sample([1, 2, 3, 4, 5,6,7,8,9,10,11,12,13],  2) 
-    def __init__(self,nombre,apuesta):
+    def __init__(self,nombre,dinero,apuesta):
         self.nombre= nombre
         self.carta=self.cartas
+        self.dinero=dinero  # cantidad de dinero al iniciar el juego.
         self.apuesta=apuesta
         self.puntos=self.carta[0]+self.carta[1]
 
 
-Lucero=player("Lucero",500)
-print Lucero.carta
-print Lucero.puntos
+    def pedir(self):
+        pedir=random.randint(1, 10)
+        self.puntos=self.puntos+pedir
+        self.carta.append(pedir)
+
+
+lucero=player("Lucero",1000,500)
+
+
+print lucero.puntos
+lucero.pedir()
+print lucero.carta
+print lucero.puntos
+
+
+
+
+
+
+        
+
 
         
         
