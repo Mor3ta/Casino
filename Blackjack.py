@@ -2,32 +2,42 @@ import random
 
 class  player():
     mano=[]
+    puntos=0
     def __init__(self,nombre,dinero,apuesta):
         self.nombre= nombre
         self.mano=self.mano
         self.dinero=dinero  # cantidad de dinero al iniciar el juego.
         self.apuesta=apuesta
-        #self.puntos=self.mano[0]+self.mano[1]
+        self.puntos=self.puntos
         
     def play(self):
         pick=random.sample([1, 2, 3, 4, 5,6,7,8,9,10,11,12,13],  2)
         self.mano=pick
+        puntos=pick[0]+pick[1]
+        self.puntos=puntos
         print self.mano
-         
-    
+        print self.puntos
 
 
     def pedir(self):
         if self.puntos<21:
             pedir=random.randint(1, 13)
-            self.carta.append(pedir)
+            self.mano.append(pedir)
             self.puntos=self.puntos+pedir
-            print self.cartas
+            print self.mano
             print self.puntos
+            
+    def duplicar(self):
+        self.apuesta= self.apuesta *2
+        self.dinero= self.dinero-self.apuesta
 
-lucero=player("Lucero",1000,500)
-lucero.play()
-#lucero.pedir()
+lucero=player("Lucero",5000,1500)
+
+print lucero.apuesta
+lucero.duplicar()
+print lucero.apuesta
+print lucero.dinero
+
 
 
 
