@@ -30,13 +30,13 @@ class  player():
     def duplicar(self):
         self.apuesta= self.apuesta *2
         self.dinero= self.dinero-self.apuesta
+        self.pedir()
 
 lucero=player("Lucero",5000,1500)
 
-print lucero.apuesta
+lucero.play()
 lucero.duplicar()
-print lucero.apuesta
-print lucero.dinero
+print lucero.mano
 
 
 
