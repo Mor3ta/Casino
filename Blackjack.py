@@ -1,11 +1,10 @@
 import random
 
-class  player():
-    mano=[]
+class Player():
     puntos=0
     def __init__(self,nombre,dinero,apuesta):
         self.nombre= nombre
-        self.mano=self.mano
+        self.mano=[]
         self.dinero=dinero  # cantidad de dinero al iniciar el juego.
         self.apuesta=apuesta
         self.puntos=self.puntos
@@ -32,11 +31,27 @@ class  player():
         self.dinero= self.dinero-self.apuesta
         self.pedir()
 
-lucero=player("Lucero",5000,1500)
 
-lucero.play()
-lucero.duplicar()
-print lucero.mano
+class Crupier():
+    def __init__(self):
+        self.mano=[]
+
+    def repartir (self) :
+        Player.mano=random.sample([1, 2, 3, 4, 5,6,7,8,9,10,11,12,13],  2)
+        self.mano=random.sample([1, 2, 3, 4, 5,6,7,8,9,10,11,12,13],  2)
+        
+
+
+x= Crupier()
+x.repartir()
+
+print Player.mano
+print x.mano
+
+        
+
+   
+
 
 
 
