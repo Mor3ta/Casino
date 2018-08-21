@@ -6,7 +6,7 @@ class Crupier():
         self.mano=[]
 
     def repartir (self) :
-        mazo=['As', '2', '3', '4', '5','6','7','8','9','10','j','Q','k']
+        mazo=[1, 2, 3, 4, 5,6,7,8,9,10,11,12,13]
         Player.mano=random.sample(mazo,  2)
         self.mano= random.sample(mazo,  1)
     def revelar (self):
@@ -30,22 +30,6 @@ class Player():
         self.apuesta=apuesta
         self.puntos=self.puntos
         
-    def play(self):
-        pick=random.sample(['As', '2', '3', '4', '5','6','7','8','9','10','j','Q','k'],  2)
-        self.mano=pick
-        puntos=pick[0]+pick[1]
-        self.puntos=puntos
-        print self.mano
-        print self.puntos
-
-
-    def pedir(self):
-        if self.puntos<21:
-            pedir=random.randint(1, 13)
-            self.mano.append(pedir)
-            self.puntos=self.puntos+pedir
-            print self.mano
-            print self.puntos
             
     def duplicar(self):
         self.apuesta= self.apuesta *2
@@ -57,11 +41,6 @@ class Player():
         
 
 
-x= Crupier()
-x.repartir()
-print x.mano
-x.revelar()
-print x.mano
 
 
 
