@@ -11,9 +11,7 @@ class Game():
         self.dinero=dinero
         self.apuesta=0
         self.puntos=0
-
-
-        
+            #Inicia el juego
            # Accion del jugador, Recibe el monto que el jugador decea apostar
            # y devuelve dos cartas y la cantidad de punto de este. Y la carta inicial de Crupier.
  
@@ -39,9 +37,12 @@ class Game():
             self.puntos=self.puntos+pedir
             print("{} pidio una carta {}".format(self.nombre,self.mano))
             print("Nueva puntuacion de {}:{}".format(self.nombre, self.puntos))
+        else:
+            if self.puntos == 21:
+                self.blackjack()  # OJO: agregar impresion blackjac en el metodo terminar.
 
-
-    # Dobla la apuesta iniciar y agregar una carta a la mano.
+    # Dobla la apuesta y
+    #iniciar y agregar una carta a la mano.
     # El jugador ya no puede pedir mas cartas.
    
     def duplicar(self):
@@ -53,25 +54,43 @@ class Game():
     #Finaliza el turno del jugador e inicia el turno del Crupier.
     #Devuelve quien es el ganador del juego.
 
-    def terminar(self):
-        print("{} termino la partida, el Crupier inicia a jugar." .format(self.nombre))
-        revelar = random.randint(1, 13)
-        self.cartas_crupier.append(revelar)       #Muestra la carta oculta del crupier
-        self.puntos_crupier = sum(self.cartas_crupier)
-        while self.puntos_crupier < 17:
-            self.cartas_crupier.append(revelar)
-            self.puntos_crupier= sum(self.cartas_crupier) #Pide Cartas al Crupier hasta que este llega a una puntuacion de 17
-        print("Cartas del Crupier:{}".format(self.cartas_crupier))
-        print ("Puntos del Curpier:{}".format(self.puntos_crupier))
+    def blackjack(self):
+        if self.puntos ==21:
+            self.apuesta= self.apuesta*2
+            print ("{}BLACKJACK! You win ${}").format(self.nombre,self.nombre)
 
-        #RESULTADO
-        # if self.puntos > self.puntos_crupier:
-        #     self.dinero = self.dinero+self.apuesta *2
-        #     print ("${}: WIN  Tu cantidad de Dinero actual es ${}".format(self.nombre,self.dinero))
-        #
-        # else:
-        #     self.dinero = self.dinero - self.apuesta
-        #     print ("{}: Lose ${} Tu cantidad de Dinero actual es ${}".format(self.nombre,self.apuesta,self.dinero))
+    def terminar(self):
+
+        if self.puntos > 21:
+            self.dinero = self.dinero - self.apuesta
+            print("${}: LOSE  Tu cantidad de Dinero actual es ${}".format(self.nombre, self.dinero))
+        else:
+            print("{} termino la partida, el Crupier inicia a jugar.".format(self.nombre))
+            revelar = random.randint(1, 13)
+            self.cartas_crupier.append(revelar)       #Muestra la carta oculta del crupier
+            self.puntos_crupier = sum(self.cartas_crupier)
+            while self.puntos_crupier < 17:
+                self.cartas_crupier.append(revelar)
+                self.puntos_crupier= sum(self.cartas_crupier) #Pide Cartas al Crupier hasta que este llega a una puntuacion de 17
+            print("Cartas del Crupier:{}".format(self.cartas_crupier))
+            print ("Puntos del Curpier:{}".format(self.puntos_crupier))
+
+            #RESULTADOS
+            if self.puntos_crupier >21:
+                self.dinero = self.dinero + self.apuesta*2
+                print ("{}: WIN ${} Tu cantidad de Dinero actual es ${}".format(self.nombre,self.apuesta,self.dinero))
+            # El crupier empata con el jugador.
+
+            if self.puntos_crupier == self.puntos:
+                print ("EMPATADOS")
+            #El crupier saca una puntuacion mayor que el jugador sin pasarse o El jugador saca una puntuacion mayor que
+            #la del Crupier sin pasarse
+
+            if self.puntos_crupier > self.puntos:
+                print("Crupier WIN")
+
+            else:
+                print("{}: WIN ${} Tu cantidad de Dinero actual es ${}".format(self.nombre, self.apuesta, self.dinero))
 
 
 
@@ -80,9 +99,7 @@ class Game():
 
 Lucero=Game("Lucero", 5000)
 Lucero.apostar(1000)
-Lucero.pedir()
-Lucero.terminar()
-print(Lucero.dinero)
+Lucero.duplicar()
 
 
 
