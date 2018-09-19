@@ -1,7 +1,7 @@
 import random
 
 class Game():
-    mazo = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    mazo = [1, 2, 3, 4,5,6,7,8,9,10,11,12,13]
     puntos_Crupier=0
     catas_crupier=0
 
@@ -15,8 +15,8 @@ class Game():
            # Accion del jugador, Recibe el monto que el jugador decea apostar
            # y devuelve dos cartas y la cantidad de punto de este. Y la carta inicial de Crupier.
  
-    def apostar(self,apostar):
-        self.apuesta=apostar
+    def apostar(self):
+        self.apuesta=int(input("diga el monto de su apuesta"))
         if self.apuesta > self.dinero:
             print("El dinero no es suficiente para esta apuesta.")    # Muestra si el dinero que tienes es suficiente
         else:                                                         #Para la apuesta que quieres realizar.
@@ -26,6 +26,7 @@ class Game():
             print ("Cartas de {} {}".format(self.nombre,self.mano))
             print ("Cartas del crupier{}".format(self.cartas_crupier))
             print("Puntos de {} {}".format(self.nombre, self.puntos))
+          
 
 
     # Agrega una carta al jugador, suma los puntos.
@@ -86,7 +87,7 @@ class Game():
             #El crupier saca una puntuacion mayor que el jugador sin pasarse o El jugador saca una puntuacion mayor que
             #la del Crupier sin pasarse
 
-            if self.puntos_crupier > self.puntos:
+            if self.puntos_crupier > self.puntos and self.puntos_crupier < 21:
                 print("Crupier WIN")
 
             else:
@@ -95,11 +96,38 @@ class Game():
 
 
 
+def play():
+    player.apostar()
+    while player.puntos <=21:
+        pedir=input("deceas pedir una carta?")
+        if pedir== "si":
+            player.pedir()
+        else:
+            player.terminar()
+            break
+   
+        
+    
 
 
-Lucero=Game("Lucero", 5000)
-Lucero.apostar(1000)
-Lucero.duplicar()
+
+
+
+
+player=input("cual es tu nombre?")
+dinero=int(input("cual es tu monto disponible para jugar?"))
+player=Game(player, dinero)
+play()
+if player.dinero!=0:
+    continuar=input("continuar jugando?")
+    if continuar == "si":
+        play()
+    else:
+        print ("La partida termino")
+    
+
+
+
 
 
 
@@ -111,6 +139,7 @@ Lucero.duplicar()
 
 
    
+
 
 
 
