@@ -22,6 +22,15 @@ class Game():
             if self.dinero >0:
                 print("Tu cantidad de dinero es {}".format(self.dinero))
                 self.apuesta= int(input(" Apuesta otra cantidad"))
+                if self.apuesta>self.dinero:
+                    self.mano= random.sample(self.mazo,  2)
+                    self.cartas_crupier=random.sample(self.mazo,  1)     
+                    self.puntos = sum(self.mano)
+                    print ("Cartas de {} {}".format(self.nombre,self.mano))
+                    print ("Cartas del crupier{}".format(self.cartas_crupier))
+                    print("Puntos de {} {}".format(self.nombre, self.puntos))
+                    self.pedir()
+                    
             else:
                 if self.dinero<=0:
                     dinero=input("Deseas agregar dinero")
@@ -52,16 +61,15 @@ class Game():
                 print("Nueva puntuacion de {}:{}".format(self.nombre, self.puntos))
             else:
                 if nuevaCarta=="no":
-                    self.terminar()                   
+                    self.terminar()
+                    break
         else:
             if len(self.mano)==2 and self.puntos==21:
                 self.blackjack()
-            if self.puntos >21:
+            if self.puntos >=21:
                 self.terminar()
-                
-         
-
- 
+                                    
+    
    
     def duplicar(self):
         self.apuesta= self.apuesta *2
@@ -95,24 +103,34 @@ class Game():
             if self.puntos_crupier >21:
                 self.dinero = self.dinero + self.apuesta*2
                 print ("{}: WIN ${} Tu cantidad de Dinero actual es ${}".format(self.nombre,self.apuesta,self.dinero))
-            # El crupier empata con el jugador.
+         
 
             if self.puntos_crupier == self.puntos:
                 print ("EMPATADOS")
-            #El crupier saca una puntuacion mayor que el jugador sin pasarse o El jugador saca una puntuacion mayor que
-            #la del Crupier sin pasarse
+          
 
-            if self.puntos_crupier > self.puntos and self.puntos_crupier < 21:
-                print("Crupier WIN")
+            if self.puntos_crupier > self.puntos and self.puntos_crupier <= 21:
+                self.dinero=self.dinero-self.apuesta
+                print("Crupier WIN. Tu cantidad de Dinero es ${}".format(self.dinero))
 
-            else:
-                print("{}: WIN ${} Tu cantidad de Dinero actual es ${}".format(self.nombre, self.apuesta, self.dinero))
+            if self.puntos > self.puntos_crupier:
+                self.dinero=self.dinero+self.apuesta*2
+                print("{} WIN. Tu cantidad de Dinero es ${}".format(self.nombre,self.dinero))
 
+           
+                
+        #NUEVA PARTIDA        
+        nuevoJuego=input("Deceas volver a jugar")
+        if nuevoJuego=="si"and player.dinero>0:
+            player.apostar()
+        else:
+            if player.dinero<=0:
+                player.dinero=int(input("No tienes Dinero suficiente agrega mas dinero"))
+                player.apostar()
+            if nuevoJuego=="no":
+                print ("El juego termino!")
+      
 
-
-   
-        
-    
 
 
 player=input("cual es tu nombre?")
@@ -121,6 +139,8 @@ if dinero<=0:
     dinero= int(input("Introdusca un monto valido para apostar"))
 player=Game(player, dinero)
 player.apostar()
+
+                
     
 
 
