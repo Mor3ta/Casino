@@ -1,5 +1,6 @@
 import random
 
+
 class Game():
     mazo = [1, 2, 3, 4,5,6,7,8,9,10,11,12,13]
     puntos_Crupier=0
@@ -11,25 +12,33 @@ class Game():
         self.dinero=dinero
         self.apuesta=0
         self.puntos=0
-            #Inicia el juego
-           # Accion del jugador, Recibe el monto que el jugador decea apostar
-           # y devuelve dos cartas y la cantidad de punto de este. Y la carta inicial de Crupier.
+         
  
     def apostar(self):
         self.apuesta=int(input("diga el monto de su apuesta"))
         if self.apuesta > self.dinero:
-            print("El dinero no es suficiente para esta apuesta.")    # Muestra si el dinero que tienes es suficiente
-        else:                                                         #Para la apuesta que quieres realizar.
+            print("El dinero no es suficiente para esta apuesta.")
+            if self.dinero >0:
+                print("Tu cantidad de dinero es {}".format(self.dinero))
+                self.apuesta= int(input(" Apuesta otra cantidad"))
+            else:
+                if self.dinero<=0:
+                    dinero=input("Deseas agregar dinero")
+                    if dinero=="si":
+                        self.dinero=int(input("cuanto deseas Agregar"))
+                        self.apostar()
+                    else:
+                        print ("Termino el juego")
+        else:                                                         
             self.mano= random.sample(self.mazo,  2)
-            self.cartas_crupier=random.sample(self.mazo,  1)      #Agrega de manera random una carta al Crupier y Dos al jugador.
+            self.cartas_crupier=random.sample(self.mazo,  1)     
             self.puntos = sum(self.mano)
             print ("Cartas de {} {}".format(self.nombre,self.mano))
             print ("Cartas del crupier{}".format(self.cartas_crupier))
             print("Puntos de {} {}".format(self.nombre, self.puntos))
-          
+            self.pedir()
 
 
-    # Agrega una carta al jugador, suma los puntos.
            
     def pedir(self):
         if self.puntos<21:
@@ -40,11 +49,9 @@ class Game():
             print("Nueva puntuacion de {}:{}".format(self.nombre, self.puntos))
         else:
             if self.puntos == 21:
-                self.blackjack()  # OJO: agregar impresion blackjac en el metodo terminar.
+                self.blackjack()  
 
-    # Dobla la apuesta y
-    #iniciar y agregar una carta a la mano.
-    # El jugador ya no puede pedir mas cartas.
+ 
    
     def duplicar(self):
         self.apuesta= self.apuesta *2
@@ -52,8 +59,6 @@ class Game():
         self.pedir()
         self.terminar()
 
-    #Finaliza el turno del jugador e inicia el turno del Crupier.
-    #Devuelve quien es el ganador del juego.
 
     def blackjack(self):
         if self.puntos ==21:
@@ -68,11 +73,11 @@ class Game():
         else:
             print("{} termino la partida, el Crupier inicia a jugar.".format(self.nombre))
             revelar = random.randint(1, 13)
-            self.cartas_crupier.append(revelar)       #Muestra la carta oculta del crupier
+            self.cartas_crupier.append(revelar)       
             self.puntos_crupier = sum(self.cartas_crupier)
             while self.puntos_crupier < 17:
                 self.cartas_crupier.append(revelar)
-                self.puntos_crupier= sum(self.cartas_crupier) #Pide Cartas al Crupier hasta que este llega a una puntuacion de 17
+                self.puntos_crupier= sum(self.cartas_crupier) 
             print("Cartas del Crupier:{}".format(self.cartas_crupier))
             print ("Puntos del Curpier:{}".format(self.puntos_crupier))
 
@@ -95,35 +100,17 @@ class Game():
 
 
 
-
-def play():
-    player.apostar()
-    while player.puntos <=21:
-        pedir=input("deceas pedir una carta?")
-        if pedir== "si":
-            player.pedir()
-        else:
-            player.terminar()
-            break
    
         
     
 
 
-
-
-
-
 player=input("cual es tu nombre?")
 dinero=int(input("cual es tu monto disponible para jugar?"))
+if dinero<=0:
+    dinero= int(input("Introdusca un monto valido para apostar"))
 player=Game(player, dinero)
-play()
-if player.dinero!=0:
-    continuar=input("continuar jugando?")
-    if continuar == "si":
-        play()
-    else:
-        print ("La partida termino")
+player.apostar()
     
 
 
