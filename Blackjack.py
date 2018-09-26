@@ -2,9 +2,10 @@ import random
 
 
 class Game():
-    mazo = [1, 2, 3, 4,5,6,7,8,9,10,11,12,13]
+    mazo = [1,2,3,4,5,6,7,8,9,10,10,10,10]
     puntos_Crupier=0
     catas_crupier=0
+
 
     def __init__(self,nombre,dinero):
         self.nombre= nombre
@@ -41,15 +42,24 @@ class Game():
 
            
     def pedir(self):
-        if self.puntos<21:
-            pedir=random.randint(1,13)
-            self.mano.append(pedir)
-            self.puntos=self.puntos+pedir
-            print("{} pidio una carta {}".format(self.nombre,self.mano))
-            print("Nueva puntuacion de {}:{}".format(self.nombre, self.puntos))
+        while self.puntos<21:
+            nuevaCarta=input("Deseas otra carta")
+            if nuevaCarta== "si":
+                pedir=random.randint(1,13)
+                self.mano.append(pedir)
+                self.puntos=self.puntos+pedir
+                print("{} pidio una carta {}".format(self.nombre,self.mano))
+                print("Nueva puntuacion de {}:{}".format(self.nombre, self.puntos))
+            else:
+                if nuevaCarta=="no":
+                    self.terminar()                   
         else:
-            if self.puntos == 21:
-                self.blackjack()  
+            if len(self.mano)==2 and self.puntos==21:
+                self.blackjack()
+            if self.puntos >21:
+                self.terminar()
+                
+         
 
  
    
@@ -63,7 +73,7 @@ class Game():
     def blackjack(self):
         if self.puntos ==21:
             self.apuesta= self.apuesta*2
-            print ("{}BLACKJACK! You win ${}").format(self.nombre,self.nombre)
+            print ("{}BLACKJACK! You win ${}".format(self.nombre,self.apuesta))
 
     def terminar(self):
 
