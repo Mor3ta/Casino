@@ -17,18 +17,26 @@ class Game():
     def repatirCartas(self):
         self.mano = random.sample(self.mazo, 2)
         self.cartas_crupier = random.sample(self.mazo, 1)
+
         self.puntos = sum(self.mano)
         print("\t CARTAS DE{} {}.  ".format(self.nombre, self.mano))
         print("\t PUNTOS DE {} {} ".format(self.nombre, self.puntos))
         print("\t CARTAS DEL CRUPIER {}".format(self.cartas_crupier))
 
- #Cambio en apostar!
+
     def apostar(self):
         self.apuesta=int(input("DIGA EL MONTO QUE DESEA APOSTAR  "))
-        while self.apuesta > self.dinero:
-            self.apuesta=int(input(("EL DINERO NO ES SUFICIENTE PARA REALIZAR ESTA APUESTA. DIGITE OTRA CANTIDAD? ")))
-        self.repatirCartas()
-        self.pedir()
+        while self.apuesta <=0:
+            self.apuesta=int(input(("LA APUESTA NO ES VALIDA. DIGITE OTRA CANTIDAD? ")))
+        if self.apuesta < self.dinero: 
+            self.repatirCartas()
+            self.pedir()
+        else:
+            while self.apuesta> self.dinero:
+                self.apuesta=int(input(("NO TIENE DINERO SUFICIENTE PARA APOSTAR ESTA CANTIDAD. SU MONTO ES DE ${}".format(self.dinero) + "  DIGITE OTRA CANTIDAD? ")))
+            self.repatirCartas()
+            self.pedir()
+               
 
     def pedir(self):
         while self.puntos<21:
@@ -98,14 +106,13 @@ class Game():
 print ("REGLAS:  | CONTESTA SI O NO A LAS PREGUNTAS. | |COLOCA LOS MONTOS SIN SIGNOS NI PUNTOS. |\n")
 player=input("CUAL ES TU NOMBRE?")
 dinero=int(input("CON QUE CANTIDAD DE DINERO QUIERES JUGAR"))
-if dinero<=0:
+while dinero<=0:
     dinero= int(input("INTRODUSCA UN MONTO VALIDO PARA APOSTAR"))
 player=Game(player, dinero)
 player.apostar()
 
 
                 
-    
 
 
 
